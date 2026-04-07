@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu guía para reconstruirte — Vanessa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7f6f3;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-tertiary: #a0a0a0;
+    --border: rgba(0,0,0,0.1);
+    --border-mid: rgba(0,0,0,0.15);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-primary: #1e1e1e;
+      --bg-secondary: #2a2a2a;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a8a8a8;
+      --text-tertiary: #666;
+      --border: rgba(255,255,255,0.1);
+      --border-mid: rgba(255,255,255,0.15);
+    }
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 1rem;
+  }
+
+  .deck {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+  }
+
+  .header {
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .header-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.5rem;
+  }
+
+  .header-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: #7F77DD;
+    margin-bottom: 0.5rem;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  .header h1 em { font-style: italic; color: #7F77DD; }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .nav {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+  }
+
+  .nav-btn {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover, .nav-btn.active {
+    background: #EEEDFE;
+    border-color: #AFA9EC;
+    color: #3C3489;
+  }
+
+  .section { display: none; animation: fadeIn 0.3s ease; }
+  .section.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .item-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .item-row:last-child { border-bottom: none; }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .dot-purple { background: #7F77DD; }
+  .dot-teal { background: #1D9E75; }
+  .dot-coral { background: #D85A30; }
+  .dot-amber { background: #BA7517; }
+
+  .item-text { font-size: 15px; color: var(--text-primary); line-height: 1.55; }
+  .item-note { font-size: 13px; color: var(--text-secondary); margin-top: 3px; line-height: 1.5; }
+
+  .highlight-box {
+    background: #EEEDFE;
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border-left: 3px solid #7F77DD;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .highlight-box p { font-size: 15px; color: #3C3489; line-height: 1.6; }
+
+  .limit-card {
+    border-radius: var(--radius-lg);
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .limit-header {
+    background: #EEEDFE;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .limit-header-text { font-size: 14px; font-weight: 500; color: #3C3489; }
+
+  .limit-body { background: var(--bg-primary); padding: 1rem 1.25rem; }
+  .limit-body p { font-size: 14px; color: var(--text-primary); line-height: 1.6; margin-bottom: 8px; }
+  .limit-body p:last-child { margin-bottom: 0; }
+  .limit-body .why { font-size: 13px; color: var(--text-secondary); font-style: italic; }
+
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; }
+  .tag-si { background: #EAF3DE; color: #3B6D11; }
+  .tag-no { background: #FAECE7; color: #993C1D; }
+
+  .step-row { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 0.5px solid var(--border); }
+  .step-row:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #EEEDFE; color: #534AB7;
+    font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+
+  .step-content { flex: 1; }
+  .step-title { font-size: 15px; color: var(--text-primary); font-weight: 500; margin-bottom: 3px; }
+  .step-detail { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  .exercise-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 0.5px solid var(--border);
+  }
+
+  .exercise-name { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: var(--text-primary); margin-bottom: 0.5rem; }
+  .exercise-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.55; }
+
+  .exercise-steps { list-style: none; counter-reset: ex; }
+  .exercise-steps li {
+    counter-increment: ex;
+    display: flex; gap: 10px;
+    font-size: 14px; color: var(--text-primary);
+    line-height: 1.6; padding: 8px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .exercise-steps li:last-child { border-bottom: none; }
+  .exercise-steps li::before {
+    content: counter(ex);
+    display: flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 22px; border-radius: 50%;
+    background: #E1F5EE; color: #0F6E56;
+    font-size: 11px; font-weight: 500; margin-top: 2px; flex-shrink: 0;
+  }
+
+  .thought-card { border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1rem; }
+  .thought-top { background: #FAECE7; padding: 1rem 1.25rem; }
+  .thought-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #993C1D; margin-bottom: 6px; }
+  .thought-text { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; font-style: italic; color: #712B13; line-height: 1.5; }
+  .thought-bottom { background: var(--bg-primary); padding: 1rem 1.25rem; }
+  .thought-response { font-size: 14px; color: var(--text-primary); line-height: 1.6; }
+  .thought-response strong { color: #1D9E75; font-weight: 500; }
+
+  .footer-note {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.25rem;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="header">
+    <p class="header-label">Resumen de sesión</p>
+    <p class="header-name">Para Vanessa</p>
+    <h1>Tu guía para <em>reconstruirte</em></h1>
+    <p class="header-sub">Lo que trabajamos hoy y las herramientas que te llevas.</p>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="show('reconstruir', this)">Reconstruir tu vida</button>
+    <button class="nav-btn" onclick="show('limites', this)">Guía de límites</button>
+    <button class="nav-btn" onclick="show('trabajo', this)">Cambio de trabajo</button>
+    <button class="nav-btn" onclick="show('ejercicio', this)">Ejercicio para la ansiedad</button>
+    <button class="nav-btn" onclick="show('culpa', this)">Cuando aparece la culpa</button>
+  </div>
+
+  <div class="section visible" id="sec-reconstruir">
+    <div class="highlight-box">
+      <p>Reconstruir tu vida va en dos direcciones a la vez: <strong>reducir su presencia</strong> en tu mundo y <strong>ampliar la tuya</strong>. Las dos son igual de importantes.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Reducir su presencia</div>
+      <div class="item-row"><div class="dot dot-coral"></div><div><div class="item-text">Sacarlo de tus redes sociales</div><div class="item-note">No ver su vida no es debilidad, es protección.</div></div></div>
+      <div class="item-row"><div class="dot dot-coral"></div><div><div class="item-text">No recibir información sobre él</div><div class="item-note">Pedirle a las personas cercanas que no te cuenten sobre él.</div></div></div>
+      <div class="item-row"><div class="dot dot-coral"></div><div><div class="item-text">No darle explicaciones</div><div class="item-note">No le debes justificaciones de tus decisiones, tiempo ni espacio.</div></div></div>
+      <div class="item-row"><div class="dot dot-coral"></div><div><div class="item-text">Solo responder mensajes de trabajo</div><div class="item-note">Un filtro claro: si no es sobre trabajo, no necesita respuesta.</div></div></div>
+      <div class="item-row"><div class="dot dot-coral"></div><div><div class="item-text">No hacerle reclamos</div><div class="item-note">Los reclamos mantienen el vínculo activo. El silencio te libera.</div></div></div>
+      <div class="item-row"><div class="dot dot-coral"></div><div><div class="item-text">No asistir a espacios donde él esté</div><div class="item-note">Cuidar tu territorio social es parte del proceso.</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Ampliar tu presencia</div>
+      <div class="item-row"><div class="dot dot-teal"></div><div><div class="item-text">Hacer ejercicio</div><div class="item-note">El movimiento devuelve el cuerpo a ti.</div></div></div>
+      <div class="item-row"><div class="dot dot-teal"></div><div><div class="item-text">Hablar con tus amigas</div><div class="item-note">Tus vínculos seguros son parte de tu red de apoyo.</div></div></div>
+      <div class="item-row"><div class="dot dot-teal"></div><div><div class="item-text">Ir a terapia</div><div class="item-note">Este espacio es tuyo. Úsalo.</div></div></div>
+      <div class="item-row"><div class="dot dot-teal"></div><div><div class="item-text">Estar con tu perro</div><div class="item-note">Ese vínculo es puro y te pertenece completamente.</div></div></div>
+      <div class="item-row"><div class="dot dot-teal"></div><div><div class="item-text">Permitirte llorar</div><div class="item-note">El duelo es un proceso legítimo. El dolor no es debilidad.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-limites">
+    <div class="highlight-box">
+      <p>Los límites no son muros de frialdad. Son la forma de no seguir dándole energía a algo que te hace daño.</p>
+    </div>
+    <div class="limit-card">
+      <div class="limit-header"><span class="tag tag-no">No</span><span class="limit-header-text">Engancharse en sus conversaciones</span></div>
+      <div class="limit-body"><p>Si él busca discutir, provocar o manipular, la respuesta es el silencio o una frase corta y neutral. No hay que ganar el argumento.</p><p class="why">Engancharse lo mantiene con poder sobre ti. Salir de la conversación te devuelve el tuyo.</p></div>
+    </div>
+    <div class="limit-card">
+      <div class="limit-header"><span class="tag tag-no">No</span><span class="limit-header-text">Hacerle reclamos</span></div>
+      <div class="limit-body"><p>Aunque tengas razón, aunque él haya actuado mal, los reclamos crean el contacto que necesitas evitar.</p><p class="why">Reclamarle es seguir esperando algo de él. Y él no tiene lo que necesitas.</p></div>
+    </div>
+    <div class="limit-card">
+      <div class="limit-header"><span class="tag tag-no">No</span><span class="limit-header-text">Recibir información sobre su vida</span></div>
+      <div class="limit-body"><p>Si alguien te cuenta cosas sobre él, puedes decir: "prefiero no saber". No es necesario dar más explicación.</p><p class="why">Cada dato sobre su vida activa el ciclo de pensamientos. Menos información, más tranquilidad.</p></div>
+    </div>
+    <div class="limit-card">
+      <div class="limit-header"><span class="tag tag-si">Solo</span><span class="limit-header-text">Responder mensajes de trabajo</span></div>
+      <div class="limit-body"><p>El criterio es simple: ¿es sobre trabajo? Respondo. ¿No es sobre trabajo? No respondo.</p><p>Si el mensaje mezcla trabajo con otra cosa, puedes responder solo la parte de trabajo, o no responder.</p><p class="why">Tener una regla clara te evita tener que decidir cada vez bajo presión.</p></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-trabajo">
+    <div class="highlight-box">
+      <p>Trabajar para él es el lazo más concreto que te une a su mundo. Soltarlo lleva tiempo, pero cada paso en esa dirección es una ganancia real.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Pasos progresivos</div>
+      <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Explorar, sin presión</div><div class="step-detail">Empieza solo por mirar. LinkedIn, bolsas de trabajo, hablar con personas de tu sector. No tienes que aplicar todavía.</div></div></div>
+      <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Actualizar tu perfil o CV</div><div class="step-detail">Tener tu CV al día te recuerda que tienes habilidades y opciones. Es un acto de confianza en ti.</div></div></div>
+      <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Hablar con personas de confianza</div><div class="step-detail">¿Hay alguien en tu red que pueda orientarte o que conozca oportunidades? Activar esas conversaciones abre puertas.</div></div></div>
+      <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Hacer una postulación cuando te sientas lista</div><div class="step-detail">No tiene que ser perfecta ni urgente. El objetivo es empezar a moverse, no resolver todo de una.</div></div></div>
+      <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Construir un colchón de seguridad financiera</div><div class="step-detail">Si es posible, empieza a ahorrar progresivamente. Tener un respaldo económico, aunque sea pequeño, te da margen real para tomar la decisión cuando llegue el momento.</div></div></div>
+      <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Recordar por qué lo haces</div><div class="step-detail">Cambiar de trabajo no es solo económico. Es retomar tu vida por completo.</div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ejercicio">
+    <div class="highlight-box">
+      <p>Cuando la incomodidad o la ansiedad aparecen, el cuerpo necesita una señal de que estás a salvo. Estos ejercicios le dan esa señal.</p>
+    </div>
+    <div class="exercise-card">
+      <div class="exercise-name">Respiración 4-7-8</div>
+      <div class="exercise-desc">Regula el sistema nervioso y reduce la sensación de urgencia o angustia en minutos.</div>
+      <ol class="exercise-steps">
+        <li>Busca una posición cómoda, sentada o acostada.</li>
+        <li>Inhala lentamente por la nariz durante <strong>4 segundos</strong>.</li>
+        <li>Sostén el aire sin soltar durante <strong>7 segundos</strong>.</li>
+        <li>Exhala lentamente por la boca durante <strong>8 segundos</strong>.</li>
+        <li>Repite este ciclo entre 3 y 5 veces.</li>
+      </ol>
+    </div>
+    <div class="exercise-card">
+      <div class="exercise-name">Anclaje 5-4-3-2-1</div>
+      <div class="exercise-desc">Cuando la mente se va al pasado o al futuro, este ejercicio la trae de vuelta al momento presente.</div>
+      <ol class="exercise-steps">
+        <li>Nombra <strong>5 cosas</strong> que puedes ver a tu alrededor.</li>
+        <li>Nombra <strong>4 cosas</strong> que puedes tocar, y tócalas.</li>
+        <li>Nombra <strong>3 cosas</strong> que puedes escuchar en este momento.</li>
+        <li>Nombra <strong>2 cosas</strong> que puedes oler.</li>
+        <li>Nombra <strong>1 cosa</strong> que puedes saborear.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <div class="card-title">Cuándo usarlos</div>
+      <div class="item-row"><div class="dot dot-amber"></div><div class="item-text">Cuando sientes que la angustia sube y quieres mandarte un mensaje que no te conviene.</div></div>
+      <div class="item-row"><div class="dot dot-amber"></div><div class="item-text">Cuando los pensamientos de culpa se vuelven muy intensos.</div></div>
+      <div class="item-row"><div class="dot dot-amber"></div><div class="item-text">Antes de contestar algo de él que no sea estrictamente trabajo.</div></div>
+      <div class="item-row"><div class="dot dot-amber"></div><div class="item-text">Cuando estás sola y el malestar no te deja pensar con claridad.</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-culpa">
+    <div class="highlight-box">
+      <p>Los pensamientos de culpa no son la verdad. Son el resultado de haber estado mucho tiempo en un vínculo que te enseñó a dudar de ti misma.</p>
+    </div>
+    <div class="thought-card">
+      <div class="thought-top"><div class="thought-label">Pensamiento de culpa</div><div class="thought-text">"Si le corto el contacto, soy una mala persona."</div></div>
+      <div class="thought-bottom"><div class="thought-response"><strong>La realidad es:</strong> protegerte no te hace mala persona. Te hace alguien que está eligiendo su bienestar. Él puede seguir teniendo una vida sin que tú seas responsable de ella.</div></div>
+    </div>
+    <div class="thought-card">
+      <div class="thought-top"><div class="thought-label">Pensamiento de culpa</div><div class="thought-text">"Debería poder manejar esto sin alejarlo tanto."</div></div>
+      <div class="thought-bottom"><div class="thought-response"><strong>La realidad es:</strong> poner distancia es parte del proceso de sanar, no una señal de que eres débil o que estás exagerando. El contacto continuo mantiene abierta la herida.</div></div>
+    </div>
+    <div class="thought-card">
+      <div class="thought-top"><div class="thought-label">Pensamiento de culpa</div><div class="thought-text">"Si dejo el trabajo, soy una mala persona."</div></div>
+      <div class="thought-bottom"><div class="thought-response"><strong>La realidad es:</strong> buscar un trabajo diferente es una decisión profesional y personal completamente válida. No eres responsable de su empresa ni de lo que él haga con ella. Cuidar tu bienestar no te hace mala persona.</div></div>
+    </div>
+    <div class="thought-card">
+      <div class="thought-top"><div class="thought-label">Pensamiento de culpa</div><div class="thought-text">"Si dejo el trabajo, él no va a poder continuar con esto."</div></div>
+      <div class="thought-bottom"><div class="thought-response"><strong>La realidad es:</strong> él es un adulto responsable de su propio negocio y sus propias decisiones. Quedarte para sostener lo de él no es tu función, y hacerlo tiene un costo real para ti. Su estabilidad no puede depender de tu sacrificio.</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Cuando aparezca un pensamiento de culpa</div>
+      <div class="item-row"><div class="dot dot-purple"></div><div class="item-text">Nótalo sin pelearte con él: <em>"aparece el pensamiento de culpa"</em>.</div></div>
+      <div class="item-row"><div class="dot dot-purple"></div><div class="item-text">Recuerda que tener ese pensamiento no significa que sea verdad.</div></div>
+      <div class="item-row"><div class="dot dot-purple"></div><div class="item-text">Vuelve al cuerpo: usa la respiración o el anclaje 5-4-3-2-1.</div></div>
+      <div class="item-row"><div class="dot dot-purple"></div><div class="item-text">Habla de él en terapia. No tienes que resolver la culpa sola.</div></div>
+    </div>
+  </div>
+
+  <div class="footer-note">Esta guía es tuya, Vanessa. Puedes volver a ella cuando lo necesites.</div>
+</div>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('sec-' + id).classList.add('visible');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
